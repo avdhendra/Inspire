@@ -7,9 +7,12 @@ import {
 import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPost } from "state";
+
 import FlexBetween from "../../Components/FlexBetween";
+import Friend from "../../Components/Friend";
 import { WidgetWrapper } from "../../Components/WidgetWrapper";
+import { setPost } from "../../state";
+
 const PostWidget = ({
   postId,
   postUserId,
@@ -25,12 +28,14 @@ const PostWidget = ({
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const loggedInUserId = useSelector((state) => state.user._id);
-  const isLiked = Boolean(likes[loggedInUserId]);
+  console.log(loggedInUserId)
+  const isLiked = Boolean(likes[loggedInUserId])
   const likeCount = Object.keys(likes).length;
 
   const { palette } = useTheme();
   const main = palette.neutral.main;
   const primary = palette.primary.main;
+  
 
   const patchLike = async () => {
     const response = await fetch(`http://localhost:3001/posts/${postId}/like`, {
